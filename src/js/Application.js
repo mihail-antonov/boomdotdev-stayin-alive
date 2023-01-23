@@ -20,6 +20,29 @@ export default class Application extends EventEmitter {
 
     document.querySelector(".main").appendChild(message);
 
+    this._beat = new Beat();
+
+    this._beat.on(Beat.events.BIT, () => {
+
+      count += 1;
+
+      if (lyrics.length > count) {
+
+        this._create(lyrics[count]);
+      }
+    });
+
     this.emit(Application.events.READY);
   }
+
+  _create(lyric) {
+
+    let message = document.createElement('div');
+    message.classList.add('message');
+    message.innerText = lyric;
+
+    document.querySelector(".main").appendChild(message);
+  }
 }
+
+
